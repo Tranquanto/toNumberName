@@ -1,5 +1,8 @@
-function toNumberName(number, type, abbreviate) {
+function toNumberName(number, type, abbreviate, decimalPlaces) {
 	let numberNames;
+	if (decimalPlaces === undefined) {
+		decimalPlaces = 3;
+	}
 	if (abbreviate) {
 		numberNames = [
 			["","M","B","T","Qa","Qi","Sx","Sp","Oc","No","Dc"],
@@ -131,6 +134,6 @@ function toNumberName(number, type, abbreviate) {
 	}
 
 	function first() {
-		return num.pow((number.abs().log10()).sub(number.abs().log10().floor())).mul(num.pow(number.abs().log10().floor().toNumber() % 3)).mul(number.div(number.abs())).toFixed(3);
+		return num.pow((number.abs().log10()).sub(number.abs().log10().floor())).mul(num.pow(number.abs().log10().floor().toNumber() % 3)).mul(number.div(number.abs())).toFixed(decimalPlaces);
 	}
 }
