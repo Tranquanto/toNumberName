@@ -2,6 +2,8 @@ function toNumberName(number, type, abbreviate, decimalPlaces) {
 	let numberNames;
 	if (decimalPlaces === undefined) {
 		decimalPlaces = 3;
+	} else if (decimalPlaces > 14) {
+		console.warn("decimalPlaces has a max value of 14");
 	}
 	if (abbreviate) {
 		numberNames = [
@@ -114,13 +116,13 @@ function toNumberName(number, type, abbreviate, decimalPlaces) {
 		}
 		numberName[3] = numberNames[3][(Math.floor((Math.log10(Math.abs(number)) - 3) / 300))%10];
 
-		let mainOutput = (10**((Math.log10(Math.abs(number))) - (Math.floor(Math.log10(Math.abs(number))))) * (10**(Math.floor(Math.log10(Math.abs(number)))%3)) * (number / (Math.abs(number)))).toFixed(3);
+		let mainOutput = Math.floor((((10**((Math.log10(Math.abs(number))) - (Math.floor(Math.log10(Math.abs(number))))) * (10**(Math.floor(Math.log10(Math.abs(number)))%3)) * (number / (Math.abs(number))))) * (10**decimalPlaces))) / (10**decimalPlaces).toFixed(decimalPlaces);
 
 		if (Math.log10(number) >= 33000) {
 			return Infinity;
 		} else if (Math.floor(Math.log10(Math.abs(number))) >= 3003 && (Math.floor(Math.log10(Math.abs(number))) - 3)%3000 >= 0 && (Math.floor(Math.log10(Math.abs(number))) - 3)%3000 <= 2) {
 			if (abbreviate) {
-				return mainOutput + " " + numberName[0] + " L";
+				return mainOutput + " " + numberName[0] + "L";
 			} else {
 				return mainOutput + " " + numberName[0] + "llion";
 			}
@@ -134,6 +136,6 @@ function toNumberName(number, type, abbreviate, decimalPlaces) {
 	}
 
 	function first() {
-		return num.pow((number.abs().log10()).sub(number.abs().log10().floor())).mul(num.pow(number.abs().log10().floor().toNumber() % 3)).mul(number.div(number.abs())).toFixed(decimalPlaces);
+		return num.pow((number.abs().log10()).sub(number.abs().log10().floor())).mul(num.pow(number.abs().log10().floor().toNumber() % 3)).mul(number.div(number.abs())).div(10**decimalPlaces).floor().mul(10**decimalPlaces).toFixed(decimalPlaces);
 	}
 }
