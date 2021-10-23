@@ -116,7 +116,7 @@ function toNumberName(number, type, abbreviate, decimalPlaces) {
 		}
 		numberName[3] = numberNames[3][(Math.floor((Math.log10(Math.abs(number)) - 3) / 300))%10];
 
-		let mainOutput = (Math.floor((10**((Math.log10(Math.abs(number))) - (Math.floor(Math.log10(Math.abs(number))))) * (10**(Math.floor(Math.log10(Math.abs(number)))%3)) * (number / (Math.abs(number)))) * (10**decimalPlaces)) / (10**decimalPlaces)).toFixed(decimalPlaces);
+		let mainOutput = (Math.round((10**((Math.log10(Math.abs(number))) - (Math.floor(Math.log10(Math.abs(number))))) * (10**(Math.floor(Math.log10(Math.abs(number)))%3)) * (number / (Math.abs(number)))) * (10**decimalPlaces)) / (10**decimalPlaces)).toFixed(decimalPlaces);
 
 		if (Math.log10(number) >= 33000) {
 			return Infinity;
