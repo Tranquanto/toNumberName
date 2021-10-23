@@ -119,7 +119,7 @@ function toNumberName(number, type, abbreviate, decimalPlaces) {
 		let mainOutput = (Math.round((10**((Math.log10(Math.abs(number))) - (Math.floor(Math.log10(Math.abs(number))))) * (10**(Math.floor(Math.log10(Math.abs(number)))%3)) * (number / (Math.abs(number)))) * (10**decimalPlaces)) / (10**decimalPlaces)).toFixed(decimalPlaces);
 
 		if (Math.log10(number) >= 33000) {
-			return Infinity;
+			return "Infinity";
 		} else if (Math.floor(Math.log10(Math.abs(number))) >= 3003 && (Math.floor(Math.log10(Math.abs(number))) - 3)%3000 >= 0 && (Math.floor(Math.log10(Math.abs(number))) - 3)%3000 <= 2) {
 			if (abbreviate) {
 				return mainOutput + " " + numberName[0] + "L";
