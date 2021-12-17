@@ -1,10 +1,22 @@
-Number: <input type="number" id="number">
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Test</title>
+</head>
+<body style="font-family: sans-serif;">
+<label for="number">Number: </label><input type="text" id="number">
 <p id="output">Output</p>
 <script src="toNumberName.js"></script>
 <script src="break_eternity.js"></script>
 <script src="ExpantaNum.js"></script>
 <script>
-  /* setInterval(() => {
-    document.getElementById("output").innerText = toNumberName(document.getElementById("number").value, "decimal");
-  }, 20); */
+    setInterval(() => {
+        document.getElementById("output").innerText = toNumberName(document.getElementById("number").value, false);
+    }, 20);
 </script>
+</body>
+</html>
