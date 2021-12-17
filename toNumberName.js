@@ -40,7 +40,7 @@ function toNumberName(number, abbreviate, decimalPlaces, dontChange, dontChange1
             mantissa = (Number(number.slice(0, 21)) / 10 ** (number.split(".")[0].slice(0, 21).length - exponent % 3 - 1));
         }
     }
-    output[0] = ((exponent >= 3003) ? toNumberName(`1e${exponent / 10 ** ~~((~~(Math.log10(exponent / 3 - 1) / 3)) * 3)}`, abbreviate, decimalPlaces, exponent >= 3003, true) : "") + ((exponent % 3000 >= 3 && exponent % 3000 < 6) ? "" : arrays[4 + abbreviate][~~(Math.log10(exponent / 3 - 1) / 3)]);
+    output[0] = ((exponent >= 3003) ? toNumberName(`1e${exponent / 10 ** ~~((~~(Math.log10(exponent / 3 - 1) / 3)) * 3) + 3}`, abbreviate, decimalPlaces, exponent >= 3003, true) : "") + ((exponent % 3000 >= 3 && exponent % 3000 < 6) ? "" : arrays[4 + abbreviate][~~(Math.log10(exponent / 3 - 1) / 3)]);
     if (exponent % 3000 >= 3 && exponent % 3000 < 6) {
         output[1] = arrays[5 + abbreviate][~~(Math.log10(exponent / 3 - 1) / 3)];
     }
@@ -62,6 +62,11 @@ function toNumberName(number, abbreviate, decimalPlaces, dontChange, dontChange1
     if (exponent > 3000003) {
         return number;
     } else {
-        return `${mantissa}${output.join("")}${(abbreviate || exponent < 6 || dontChange) ? "" : "llion"}`.replaceAll("undefined", "");
+        const output2 = `${mantissa}${output.join("")}${(abbreviate || exponent < 6 || dontChange) ? "" : "llion"}`.replaceAll("undefined", "");
+        if (output2 !== "un") {
+            return output2;
+        } else {
+            return "";
+        }
     }
 }
