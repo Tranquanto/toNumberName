@@ -1,3 +1,19 @@
+const exponent = 3003003;
+const numberArrays = [
+    ["", "un", "duo", "tre", "quattuor", "quin", "sex", "septen", "octo", "novem"],
+    ["", "mi", "bi", "tri", "quadri", "quinti", "sexti", "septi", "octi", "noni"],
+    ["", "deci", "viginti", "triginti", "quadraginti", "quinquaginti", "sexaginti", "septuaginti", "octoginti", "nonaginti"],
+    ["", "centi", "ducenti", "trucenti", "quadringenti", "quingenti", "sescenti", "septingenti", "octingenti", "nongenti"],
+    ["", "milli-", "micro-", "nano-", "pico-", "femto-", "atto-", "zepto-", "yocto-", "xenno-", "weko-", "vendeko-"],
+    ["", "milli", "micri", "nani", "pici", "femti", "atti", "zepti", "yocti", "xenni", "weki", "vendeki"],
+    ["", "U", "D", "T", "Qa", "Qi", "Sx", "Sp", "Oc", "No"],
+    ["", "M", "B", "T", "Qa", "Qi", "Sx", "Sp", "Oc", "No"],
+    ["", "Dc", "Vg", "Tg", "Qag", "Qig", "Sxg", "Spg", "Ocg", "Nog"],
+    ["", "Ct", "Dct", "Tct", "Qagt", "Qigt", "Ssct", "Spgt", "Ocgt", "Nogt"],
+    ["", "MI-", "μ-", "N-", "P-", "F-", "A-", "Z-", "Y-", "X-", "W-", "V-"],
+    ["", "MI", "μ", "N", "P", "F", "A", "Z", "Y", "X", "W", "V"]
+];
+
 function toNumberName(number, abbreviate, decimalPlaces, dontChange, dontChange1) {
     const arrays = [
         ["", "un", "duo", "tre", "quattuor", "quin", "sex", "septen", "octo", "novem"],
@@ -40,7 +56,7 @@ function toNumberName(number, abbreviate, decimalPlaces, dontChange, dontChange1
             mantissa = (Number(number.slice(0, 21)) / 10 ** (number.split(".")[0].slice(0, 21).length - exponent % 3 - 1));
         }
     }
-    output[0] = ((exponent >= 3003) ? toNumberName(`1e${exponent / 10 ** ~~((~~(Math.log10(exponent / 3 - 1) / 3)) * 3) + 3}`, abbreviate, decimalPlaces, exponent >= 3003, true) : "") + ((exponent % 3000 >= 3 && exponent % 3000 < 6) ? "" : arrays[4 + abbreviate][~~(Math.log10(exponent / 3 - 1) / 3)]);
+    output[0] = ((exponent >= 3003) ? toNumberName(`1e${exponent / 10 ** ~~((~~(Math.log10(exponent / 3 - 1) / 3)) * 3) + 3}`, abbreviate, decimalPlaces, exponent >= 3003, true) : "") + ((exponent % 10 ** (~~(Math.log10(exponent / 3 - 1) / 3) * 3) * 3 + 3 >= 3 && exponent % 10 ** (~~(Math.log10(exponent / 3 - 1) / 3) * 3) * 3 + 3 < 6) ? "" : arrays[4 + abbreviate][~~(Math.log10(exponent / 3 - 1) / 3)]);
     if (exponent % 3000 >= 3 && exponent % 3000 < 6) {
         output[1] = arrays[5 + abbreviate][~~(Math.log10(exponent / 3 - 1) / 3)];
     }
@@ -59,14 +75,10 @@ function toNumberName(number, abbreviate, decimalPlaces, dontChange, dontChange1
     } else {
         mantissa += " ";
     }
-    if (exponent > 3000003) {
-        return number;
+    const output2 = `${mantissa}${output.join("")}${(abbreviate || exponent < 6 || dontChange) ? "" : "llion"}`.replaceAll("undefined", "");
+    if (output2 !== "un") {
+        return output2;
     } else {
-        const output2 = `${mantissa}${output.join("")}${(abbreviate || exponent < 6 || dontChange) ? "" : "llion"}`.replaceAll("undefined", "");
-        if (output2 !== "un") {
-            return output2;
-        } else {
-            return "";
-        }
+        return "";
     }
 }
