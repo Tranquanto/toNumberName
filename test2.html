@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test2.html</title>
+</head>
+<body>
+<p style="font-size: 36px; font-family: Nunito, sans-serif;"></p>
+<p></p>
+<script src="toNumberName.js"></script>
+<script>
+    let exponent = 0.1;
+    setInterval(() => {
+        exponent *= 1.001;
+        document.querySelector("p").innerHTML = toNumberName(10 ** (exponent % 1) + "e" + Math.floor(exponent));
+        document.querySelector("p:nth-child(2)").innerHTML = 10 ** (exponent % 1) + "e" + Math.floor(exponent);
+    });
+</script>
+</body>
+</html>

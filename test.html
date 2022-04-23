@@ -8,9 +8,9 @@
     <title>Test</title>
 </head>
 <body style="font-family: sans-serif;">
-<label for="number">Number: </label><input type="text" id="number">
+<label for="number">Number: </label>
+<input type="text" id="number" oninput='document.getElementById("output").innerText = toNumberName(document.getElementById("number").value, false);'>
 <p id="output">Output</p>
-<button onclick='document.getElementById("output").innerText = toNumberName(document.getElementById("number").value, false);'>Do thing</button>
 <script src="toNumberName.js"></script>
 <script src="break_eternity.js"></script>
 <script src="ExpantaNum.js"></script>
