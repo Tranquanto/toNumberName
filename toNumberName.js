@@ -1,6 +1,6 @@
 // noinspection DuplicatedCode
 
-function toNumberName(number, abbreviate, decimalPlaces, onlySecondPart, dontChange, dontChange1) {
+function toNumberName(number, abbreviate, decimalPlaces, onlyExponent, dontChange, dontChange1) {
     const arrays = [
         ["", "un", "duo", "tre", "quattuor", "quin", "sex", "septen", "octo", "novem"],
         ["", "mi", "bi", "tri", "quadri", "quinti", "sexti", "septi", "octi", "noni"],
@@ -52,7 +52,9 @@ function toNumberName(number, abbreviate, decimalPlaces, onlySecondPart, dontCha
         return output2;
     }
 
-    if (!onlySecondPart && number === "0") return "zero";
+    if (onlyExponent === undefined) onlyExponent = true;
+
+    if (!onlyExponent && number === "0") return "zero";
 
     number = number.toString();
     if (number === "Infinity") return "Infinity";
@@ -60,7 +62,7 @@ function toNumberName(number, abbreviate, decimalPlaces, onlySecondPart, dontCha
         decimalPlaces = 3;
     }
     if (abbreviate) {
-        abbreviate = 9;
+        abbreviate = 12;
     } else {
         abbreviate = 0;
     }
@@ -76,14 +78,14 @@ function toNumberName(number, abbreviate, decimalPlaces, onlySecondPart, dontCha
         }
     } else {
         exponent = number.split(".")[0].length - 1;
-        if (decimalPlaces !== -1 && onlySecondPart) {
+        if (decimalPlaces !== -1 && onlyExponent) {
             mantissa = (Number(number.slice(0, 21)) / 10 ** (number.split(".")[0].slice(0, 21).length - exponent % 3 - 1)).toFixed(decimalPlaces);
         } else {
             mantissa = Number(number.slice(0, 21)) / 10 ** (number.split(".")[0].slice(0, 21).length - exponent % 3 - 1);
         }
     }
     // todo OMG THIS PART
-    output[0] = (exponent >= 3003 ? toNumberName(`1e${~~(exponent / 1000) + 3}`, abbreviate, decimalPlaces, onlySecondPart, exponent >= 3003, true) : "") + (exponent % 3000 >= 3 && exponent % 3000 < 6 ? "" : arrays[4 + abbreviate][~~(Math.log10(exponent / 3 - 1) / 3)]);
+    output[0] = (exponent >= 3003 ? toNumberName(`1e${~~(exponent / 1000) + 3}`, abbreviate, decimalPlaces, onlyExponent, exponent >= 3003, true) : "") + (exponent % 3000 >= 3 && exponent % 3000 < 6 ? "" : arrays[4 + abbreviate][~~(Math.log10(exponent / 3 - 1) / 3)]);
     if (exponent % 3000 >= 3 && exponent % 3000 < 6) {
         output[1] = arrays[5 + abbreviate][~~(Math.log10(exponent / 3 - 1) / 3)];
     }
@@ -97,13 +99,13 @@ function toNumberName(number, abbreviate, decimalPlaces, onlySecondPart, dontCha
     }
     output[3] = arrays[2 + abbreviate][~~((exponent - 3) % 300 / 30)];
     output[4] = arrays[3 + abbreviate][~~((exponent - 3) % 3000 / 300)];
-    let output3 = exponent >= 3 && !onlySecondPart ? toNumberName(number % 10 ** (Math.floor(exponent / 3) * 3), abbreviate, decimalPlaces, false) : "";
+    let output3 = exponent >= 3 && !onlyExponent ? toNumberName(number % 10 ** (Math.floor(exponent / 3) * 3), abbreviate, decimalPlaces, false) : "";
     if (dontChange) {
         mantissa = "";
     } else {
         mantissa += " ";
     }
-    if (!onlySecondPart) {
+    if (!onlyExponent) {
         mantissa = toNumberNameMantissa(mantissa);
     }
     let output2 = `${mantissa} ${output.join("")}${abbreviate || exponent < 6 || dontChange ? "" : "llion"} ${output3}`.replaceAll("undefined", "").replaceAll("  ", " ");
