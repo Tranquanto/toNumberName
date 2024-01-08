@@ -15,9 +15,9 @@ Upper limit of 10^^3 -> 9 (10^10^10^9)
 
 ## How to use
 
-There is a function called toNumberName() that is used to convert the number.
+There is a function called numberName() that is used to convert the number.
 
-It has four parameters: `toNumberName(number, abbreviate, onlyExp, decimalPlaces)`
+It has four parameters: `numberName(number, abbreviate, onlyExp, decimalPlaces)`
 
 `number` is the number you want to convert. I want to make this work with as many libraries as possible; let me know if you find one that doesn't.
 
