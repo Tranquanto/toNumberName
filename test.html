@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+          content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Test</title>
     <style>
@@ -16,14 +16,12 @@
 <body style="font-family: sans-serif;">
 <label for="number">Number: </label>
 <input type="text" id="number"
-       oninput='document.getElementById("output").innerText = toNumberName(document.getElementById("number").value, document.getElementById("abbreviate").checked, document.getElementById("decimalPlaces").value, document.getElementById("onlyExponent").checked);'>
+       oninput='document.getElementById("output").innerText = numberName(document.getElementById("number").value, document.getElementById("abbreviate").checked, document.getElementById("onlyExponent").checked, document.getElementById("decimalPlaces").value);'>
 <p id="output">Output</p>
 <label for="abbreviate">Abbreviate? </label><input type="checkbox" name="abbreviate" id="abbreviate">
 <label for="decimalPlaces">Decimal Places: </label><input type="number" name="decimalPlaces" id="decimalPlaces" oninput="if (this.value > 15) this.value = 15; if (this.value < -1) this.value = -1;" style="width: 20px;">
 <label for="onlyExponent">Only Exponent? </label><input type="checkbox" name="onlyExponent" id="onlyExponent">
-<script src="toNumberName.js"></script>
-<script src="break_eternity.js"></script>
-<script src="ExpantaNum.js"></script>
+<script src="numberName.js"></script>
 <script>
 </script>
 </body>
